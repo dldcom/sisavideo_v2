@@ -9,11 +9,12 @@
 - 분석 JSON 예시를 같은 검증 모듈에 넣어 분석 필드와 문제 근거 검사 모두 오류 0건을 확인했다.
 - 2026-09-26: 번들 Node.js로 `node --test automation/tests/*.test.mjs`를 실행해 6개 테스트 모두 통과했다.
 - 2026-09-26: 사용자가 `npm.cmd install`을 완료했다. Codex 작업 환경에서도 설치된 의존성을 확인하고 타입 검사와 Vite 프로덕션 빌드를 재실행해 모두 통과했다. Node 테스트 6개도 재통과했다.
+- 2026-09-26: 공식 `yt-dlp.exe`를 `C:\codex\tools`에 설치하고 공식 SHA-256 체크섬 일치 및 `2026.08.19` 버전 실행을 확인했다. `.env.local`의 `YT_DLP_PATH`로 Node 프로세스에서도 실행을 확인했다.
 - `package.json`, `tsconfig.json`, 분석 JSON 예시의 JSON 구문을 확인했고, 상위 교육주제 seed 14개를 확인했다.
 
 ## 아직 실행되지 않은 시험
 
-Codex 작업 환경에는 `yt-dlp`가 PATH에 없고 `.env.local` 및 Supabase/YouTube API 자격 증명도 없다. SQL migration 적용과 실제 영상 3~5개의 API→자막→Codex 분석→비공개 저장→교사 공개→화면 출력 전 구간은 아직 실행하지 못했다. 사용자의 npm 설치 결과는 중간 수준 취약점 2건을 보고했으며, 영향 패키지는 별도로 확인해야 한다.
+`yt-dlp` 실행 파일은 준비됐지만 Supabase/YouTube API 자격 증명은 아직 없다. SQL migration 적용과 실제 영상 3~5개의 API→자막→Codex 분석→비공개 저장→교사 공개→화면 출력 전 구간은 아직 실행하지 못했다. 사용자의 npm 설치 결과는 중간 수준 취약점 2건을 보고했으며, 영향 패키지는 별도로 확인해야 한다.
 
 ## 실제 영상 3~5개 점검 절차
 
