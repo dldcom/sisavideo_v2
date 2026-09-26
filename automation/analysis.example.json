@@ -1,0 +1,22 @@
+{
+  "elementary_fit": 5,
+  "educational_value": 5,
+  "engagement": 4,
+  "factual_reliability": 4,
+  "recommended_grade_bands": ["3-4", "5-6"],
+  "usage_types": ["concept", "real_case"],
+  "freshness_type": "evergreen",
+  "summary": "자전거를 안전하게 타는 방법을 설명한다.",
+  "key_concepts": ["자전거 안전", "안전모"],
+  "topics": [{ "slug": "traffic-bicycle", "confidence": 0.95, "reason": "자전거 안전 수칙이 중심 내용이다." }],
+  "decision": "needs_review",
+  "reason": "초등학생에게 적절한 안전 교육 영상이다.",
+  "questions": [{
+    "question_text": "자전거를 탈 때는 @@BLANK@@를 착용해요.",
+    "answer": "안전모",
+    "evidence_text": "자전거를 탈 때는 안전모를 착용해요.",
+    "evidence_start_seconds": 28,
+    "evidence_end_seconds": 32,
+    "semantic_validation": { "passes": true, "reason": "근거 문장만으로 안전모를 정답으로 판단할 수 있다." }
+  }]
+}
