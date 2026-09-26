@@ -6,6 +6,7 @@
 - 기존 `sisavideo` 파일은 읽기만 했으며 변경하지 않았다.
 - `automation/tests/validation.test.mjs`에 자막 근거 3건과 실패 사례 2건, json3 파싱 검사를 작성했다.
 - 실제 `automation/validate.mjs` 소스를 V8에서 실행해 근거 3건은 통과, 근거에 없는 정답 1건은 거부됨을 확인했다. 이 검사는 Node 테스트 러너와 전체 수집 흐름을 대신하지 않는다.
+- 분석 JSON 예시를 같은 검증 모듈에 넣어 분석 필드와 문제 근거 검사 모두 오류 0건을 확인했다.
 - `package.json`, `tsconfig.json`, 분석 JSON 예시의 JSON 구문을 확인했고, 상위 교육주제 seed 14개를 확인했다.
 
 ## 아직 실행되지 않은 시험
