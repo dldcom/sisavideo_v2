@@ -5,7 +5,7 @@ import { join } from 'node:path';
 
 const videoIdPattern = /^[A-Za-z0-9_-]{11}$/;
 function run(args, cwd) { return new Promise((resolve,reject)=>{
-  const child=spawn('yt-dlp',args,{cwd,windowsHide:true,stdio:['ignore','ignore','pipe']}); let stderr='';
+  const child=spawn(process.env.YT_DLP_PATH || 'yt-dlp',args,{cwd,windowsHide:true,stdio:['ignore','ignore','pipe']}); let stderr='';
   child.stderr.on('data',data=>{stderr+=data.toString();});
   child.on('error',reject); child.on('close',code=>code===0?resolve():reject(new Error(stderr.slice(-1200)||`yt-dlp exited ${code}`)));
 }); }

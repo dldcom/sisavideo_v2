@@ -17,7 +17,7 @@ Cloudflare Pages 설정: 빌드 명령 `npm run build`, 출력 폴더 `dist`, `V
 
 ## 로컬 수집과 검수
 
-로컬 `.env.local`에 `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `YOUTUBE_API_KEY`도 설정합니다. 이 파일은 Git에서 제외됩니다. 먼저 Supabase Dashboard의 `channels`에 실제 YouTube channel ID를 등록하고 채널 검토 후 `review_status='approved'`, `auto_collect=true`로 설정합니다. 출처 유형은 순위가 아닙니다.
+로컬 `.env.local`에 `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `YOUTUBE_API_KEY`도 설정합니다. 이 파일은 Git에서 제외됩니다. `yt-dlp`가 PATH에 없다면 `YT_DLP_PATH=C:\codex\tools\yt-dlp.exe`처럼 실행 파일의 절대 경로를 지정할 수 있습니다. 실행 파일은 Git 저장소 밖에 둡니다. 먼저 Supabase Dashboard의 `channels`에 실제 YouTube channel ID를 등록하고 채널 검토 후 `review_status='approved'`, `auto_collect=true`로 설정합니다. 출처 유형은 순위가 아닙니다.
 
 1. `node --env-file=.env.local automation/discover.mjs` — YouTube Data API에서 등록 채널의 업로드 메타데이터를 받아 `automation/out/candidates.json`에 신규 후보만 기록합니다.
 2. `node --env-file=.env.local automation/prepare.mjs VIDEO_ID` — `yt-dlp`가 자막만 임시 수집하고, Codex가 읽을 후보 메타데이터와 타임스탬프 자막을 표준 출력으로 보냅니다. 임시 자막 파일은 종료 전에 지웁니다.
