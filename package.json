@@ -6,6 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "db:migrate": "node --env-file=.env.local automation/apply-sql.mjs migrate",
+    "db:seed": "node --env-file=.env.local automation/apply-sql.mjs seed",
+    "db:teacher-review": "node --env-file=.env.local automation/apply-sql.mjs teacherReview",
+    "review:report": "node --env-file=.env.local automation/review-report.mjs",
+    "export:public": "node --env-file=.env.local automation/export-public.mjs",
     "typecheck": "tsc -b --pretty false",
     "test": "node --test automation/tests/*.test.mjs"
   },
@@ -16,9 +21,9 @@
     "react-router-dom": "^6.30.1"
   },
   "devDependencies": {
+    "@types/node": "^22.18.0",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
-    "@types/node": "^22.18.0",
     "@vitejs/plugin-react": "^5.0.4",
     "typescript": "~5.9.2",
     "vite": "^7.1.7"

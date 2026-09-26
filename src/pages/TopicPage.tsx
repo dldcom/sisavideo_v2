@@ -26,12 +26,12 @@ export function TopicPage() {
     let active = true;
     setLoading(true);
     setError('');
-    getVideos(child ? [child] : [topic.id, ...children.map(x => x.id)], grade, page)
+    getVideos(topic.parent_id ? topics.find(x => x.id === topic.parent_id)?.slug || '' : topic.slug, child, grade, page)
       .then(result => { if (active) { setVideos(result.items); setHasMore(result.hasMore); } })
       .catch((e: Error) => { if (active) setError(e.message); })
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
-  }, [topic?.id, children, child, grade, page]);
+  }, [topic?.id, child, grade, page, topics]);
 
   return <main className="shell">
     <Link className="back" to="/">← 모든 주제</Link>
