@@ -9,15 +9,15 @@ React + TypeScript + Vite 프론트엔드, Cloudflare Pages 정적 배포, Supab
 Node.js 22 이상, npm, `yt-dlp`가 필요합니다.
 
 1. `npm install`
-2. `.env.example`을 `.env.local`로 복사하고 Vite용 Supabase URL과 anon key를 입력합니다.
+2. `.env.example`을 `.env.local`로 복사하고 Vite용 Supabase URL과 publishable key를 입력합니다.
 3. Supabase SQL Editor 또는 CLI에서 `supabase/migrations/202609260001_initial.sql`을 적용한 뒤 `supabase/seed.sql`을 실행합니다.
 4. `npm run dev`
 
-Cloudflare Pages 설정: 빌드 명령 `npm run build`, 출력 폴더 `dist`, `VITE_SUPABASE_URL`과 `VITE_SUPABASE_ANON_KEY` 환경변수를 설정합니다. `_redirects`가 SPA 경로를 처리합니다. 서비스 역할 키는 Pages에 넣지 않습니다.
+Cloudflare Pages 설정: 빌드 명령 `npm run build`, 출력 폴더 `dist`, `VITE_SUPABASE_URL`과 `VITE_SUPABASE_PUBLISHABLE_KEY` 환경변수를 설정합니다. `_redirects`가 SPA 경로를 처리합니다. secret key는 Pages에 넣지 않습니다.
 
 ## 로컬 수집과 검수
 
-로컬 `.env.local`에 `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `YOUTUBE_API_KEY`도 설정합니다. 이 파일은 Git에서 제외됩니다. `yt-dlp`가 PATH에 없다면 `YT_DLP_PATH=C:\codex\tools\yt-dlp.exe`처럼 실행 파일의 절대 경로를 지정할 수 있습니다. 실행 파일은 Git 저장소 밖에 둡니다. 먼저 Supabase Dashboard의 `channels`에 실제 YouTube channel ID를 등록하고 채널 검토 후 `review_status='approved'`, `auto_collect=true`로 설정합니다. 출처 유형은 순위가 아닙니다.
+로컬 `.env.local`에 `SUPABASE_URL`, `SUPABASE_SECRET_KEY`, `YOUTUBE_API_KEY`도 설정합니다. 이 파일은 Git에서 제외됩니다. `yt-dlp`가 PATH에 없다면 `YT_DLP_PATH=C:\codex\tools\yt-dlp.exe`처럼 실행 파일의 절대 경로를 지정할 수 있습니다. 실행 파일은 Git 저장소 밖에 둡니다. 먼저 Supabase Dashboard의 `channels`에 실제 YouTube channel ID를 등록하고 채널 검토 후 `review_status='approved'`, `auto_collect=true`로 설정합니다. 출처 유형은 순위가 아닙니다.
 
 1. `node --env-file=.env.local automation/discover.mjs` — YouTube Data API에서 등록 채널의 업로드 메타데이터를 받아 `automation/out/candidates.json`에 신규 후보만 기록합니다.
 2. `node --env-file=.env.local automation/prepare.mjs VIDEO_ID` — `yt-dlp`가 자막만 임시 수집하고, Codex가 읽을 후보 메타데이터와 타임스탬프 자막을 표준 출력으로 보냅니다. 임시 자막 파일은 종료 전에 지웁니다.
