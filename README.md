@@ -15,6 +15,8 @@ Node.js 22 이상, npm, `yt-dlp`가 필요합니다.
 
 Cloudflare Pages 설정: 빌드 명령 `npm run build`, 출력 폴더 `dist`, `VITE_SUPABASE_URL`과 `VITE_SUPABASE_PUBLISHABLE_KEY` 환경변수를 설정합니다. `_redirects`가 SPA 경로를 처리합니다. secret key는 Pages에 넣지 않습니다.
 
+주제별 공개 영상은 한 번에 18개만 조회하며, 세부주제와 학년 필터는 Supabase 쿼리에 적용합니다. 목록 페이지 이동 때만 다음 묶음을 요청합니다.
+
 ## 로컬 수집과 검수
 
 로컬 `.env.local`에 `SUPABASE_SECRET_KEY`, `YOUTUBE_API_KEY`도 설정합니다. 로컬 수집 작업은 위의 `VITE_SUPABASE_URL`을 같은 프로젝트 주소로 사용하므로 URL을 중복 입력할 필요가 없습니다. 이 파일은 Git에서 제외됩니다. `yt-dlp`가 PATH에 없다면 `YT_DLP_PATH=C:\codex\tools\yt-dlp.exe`처럼 실행 파일의 절대 경로를 지정할 수 있습니다. 실행 파일은 Git 저장소 밖에 둡니다. 먼저 Supabase Dashboard의 `channels`에 실제 YouTube channel ID를 등록하고 채널 검토 후 `review_status='approved'`, `auto_collect=true`로 설정합니다. 출처 유형은 순위가 아닙니다.
