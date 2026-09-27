@@ -20,7 +20,7 @@ Node.js 22 이상, npm, `yt-dlp`가 필요합니다.
 `yt-dlp`가 PATH에 없으면 `.env.local`에 `YT_DLP_PATH=C:\codex\tools\yt-dlp.exe`처럼 절대 경로를 지정합니다. 먼저 Supabase Dashboard에서 `channels`에 YouTube channel ID를 등록하고 `review_status='approved'`, `auto_collect=true`로 설정합니다. 출처 유형은 등급이 아닙니다.
 자막 수집 시 로컬 Node.js를 `yt-dlp`의 JavaScript 실행 환경으로 지정합니다. 자막 다운로드 오류는 실패로 알리고, 정상 실행 후 한국어 자막 파일이 없을 때만 자막 없음으로 처리합니다.
 
-1. `node --env-file=.env.local automation/discover.mjs`로 YouTube Data API 후보를 찾습니다. 기본값은 최근 3년 업로드 영상, 채널당 최대 20개이며 날짜를 바꾸려면 `automation/discover.mjs 20 2024-01-01`처럼 지정합니다. 영상의 나이만으로 자막 품질을 판단하지 않고 다음 단계에서 실제 한국어 자막을 확인합니다.
+1. `node --env-file=.env.local automation/discover.mjs`로 YouTube Data API 후보를 찾습니다. 업로드 날짜와 관계없이 채널의 최근 업로드 최대 20개를 가져오며, 다음 단계에서 실제 한국어 자막을 확인합니다.
    개별 영상을 시험할 때는 `node --env-file=.env.local automation/stage-videos.mjs VIDEO_ID ...`로 공개 메타데이터를 가져올 수 있습니다. 새 채널은 `candidate`로 등록하고 자동 수집하지 않습니다.
 2. `node --env-file=.env.local automation/prepare.mjs VIDEO_ID`로 임시 자막과 메타데이터를 Codex에 전달합니다.
 3. 로컬 Codex가 `automation/CODEX_WORKFLOW.md`에 따라 분석 JSON을 `automation/out/VIDEO_ID.analysis.json`에 작성합니다. 전체 자막은 이 파일에 넣지 않습니다.
