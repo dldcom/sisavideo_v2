@@ -11,7 +11,7 @@ const channels=ids.length?data(await db.from('channels').select('id,channel_name
 const links=ids.length?data(await db.from('video_topics').select('video_id,topic_id').in('video_id',ids)):[];
 const questions=ids.length?data(await db.from('questions').select(
   'id,video_id,question_text,answer,evidence_text,evidence_start_seconds,evidence_end_seconds,validation_status,teacher_review_status,published,sort_order'
-).in('video_id',ids).order('sort_order')):[];
+).in('video_id',ids).neq('teacher_review_status','rejected').order('sort_order')):[];
 const topicIds=[...new Set(links.map(link=>link.topic_id))];
 const topics=topicIds.length?data(await db.from('education_topics').select('id,name,slug').in('id',topicIds)):[];
 const channelById=new Map(channels.map(channel=>[channel.id,channel]));
