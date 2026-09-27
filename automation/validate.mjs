@@ -19,6 +19,21 @@ export function validateAnalysis(analysis, topics) {
   for(const key of ['elementary_fit','educational_value','engagement','factual_reliability']) if(!Number.isInteger(analysis[key])||analysis[key]<1||analysis[key]>5) errors.push(`${key}: 1~5 점수가 필요합니다`);
   if(!normalize(analysis.summary||'')) errors.push('summary 누락');
   if(!Array.isArray(analysis.key_concepts)||!analysis.key_concepts.length) errors.push('key_concepts 누락');
+  if(!Array.isArray(analysis.coverage_review)||!analysis.coverage_review.length) errors.push('coverage_review 누락');
+  else {
+    const covered=new Set();
+    for(const [i,point] of analysis.coverage_review.entries()) {
+      if(!normalize(point?.learning_point||'')) errors.push(`coverage_review ${i+1}: 학습 내용 누락`);
+      const indices=point?.question_indices;
+      if(!Array.isArray(indices)) { errors.push(`coverage_review ${i+1}: question_indices 누락`); continue; }
+      if(!indices.length&&!normalize(point?.omission_reason||'')) errors.push(`coverage_review ${i+1}: 문제 번호 또는 누락 이유 필요`);
+      for(const index of indices) {
+        if(!Number.isInteger(index)||index<0||index>=analysis.questions?.length) errors.push(`coverage_review ${i+1}: 잘못된 문제 번호`);
+        else covered.add(index);
+      }
+    }
+    if(Array.isArray(analysis.questions)) for(let i=0;i<analysis.questions.length;i++) if(!covered.has(i)) errors.push(`문제 ${i+1}: coverage_review에 연결되지 않음`);
+  }
   if(!Array.isArray(analysis.recommended_grade_bands)||!analysis.recommended_grade_bands.length||analysis.recommended_grade_bands.some(x=>!['1-2','3-4','5-6'].includes(x))) errors.push('recommended_grade_bands 오류');
   if(!Array.isArray(analysis.usage_types)||!analysis.usage_types.length||analysis.usage_types.some(x=>!['concept','hook','real_case','news_case','discussion','extension'].includes(x))) errors.push('usage_types 오류');
   if(!['evergreen','policy_sensitive','law_sensitive','technology_sensitive'].includes(analysis.freshness_type)) errors.push('freshness_type 오류');

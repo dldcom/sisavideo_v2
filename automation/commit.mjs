@@ -33,7 +33,7 @@ try {
     freshness_type:analysis.freshness_type,caption_status:'processed',review_status:'needs_review',
     elementary_fit:analysis.elementary_fit,educational_value:analysis.educational_value,
     engagement:analysis.engagement,factual_reliability:analysis.factual_reliability,
-    evaluation_note:analysis.reason||null,published:false};
+    evaluation_note:analysis.reason||null,analysis_json:{coverage_review:analysis.coverage_review},published:false};
   video=data(await db.from('videos').insert(row).select('id').single());
   data(await db.from('video_topics').insert(analysis.topics.map(x=>({video_id:video.id,topic_id:topicMap.get(x.slug),match_score:x.confidence??null,match_reason:x.reason,reviewed:false}))));
   data(await db.from('questions').insert(valid.map(q=>({video_id:video.id,question_text:q.question_text,answer:q.answer,

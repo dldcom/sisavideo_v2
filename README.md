@@ -25,6 +25,8 @@ Node.js 22 이상, npm, `yt-dlp`가 필요합니다.
 2. `node --env-file=.env.local automation/prepare.mjs VIDEO_ID`로 임시 자막과 메타데이터를 Codex에 전달합니다.
 3. 로컬 Codex가 `automation/CODEX_WORKFLOW.md`에 따라 분석 JSON을 `automation/out/VIDEO_ID.analysis.json`에 작성합니다. 전체 자막은 이 파일에 넣지 않습니다.
 4. `node --env-file=.env.local automation/commit.mjs VIDEO_ID automation/out/VIDEO_ID.analysis.json`이 자막을 다시 확인하고 근거가 검증된 문제만 `needs_review`, `published=false`로 저장합니다.
+   분석 JSON의 `coverage_review`에는 읽을 수 있는 핵심 학습 내용과 이를 다루는 문제 번호를 연결합니다. 문제 번호는 0부터 시작합니다. 문제화하지 못한 항목은 `omission_reason`을 적습니다. 영상 길이만으로 문제 수를 정하지 않습니다.
+   이미 저장된 비공개 영상에 문항을 보강할 때는 `automation/add-questions.mjs`에 추가 문항 JSON 경로를 전달합니다. `--dry-run`으로 자막 근거를 먼저 확인한 뒤 저장합니다. 같은 문항을 다시 실행하면 중복 저장하지 않습니다.
 5. `npm run review:report`로 `automation/out/review-report.md`를 생성합니다. 영상 링크와 문제별 시각 링크를 눌러 실제 화면·음성·자막 근거를 확인합니다. 교사는 Supabase Dashboard `questions`에서 문제별 `teacher_review_status`를 `approved` 또는 `rejected`로 정합니다. 영상까지 검수한 뒤 `videos`의 `review_status='approved'`, `reviewed_at` 현재 시각, `published=true`를 설정합니다. DB 트리거가 교사 승인 문제만 공개합니다.
 6. `npm run export:public`, `npm run build`를 실행하고 `dist`를 Cloudflare Pages Direct Upload로 배포합니다. 공개 취소 시에도 즉시 다시 내보내고 배포해야 기존 정적 파일이 사라집니다.
 
@@ -32,4 +34,4 @@ Cloudflare Pages에는 Supabase URL이나 키를 설정하지 않습니다. `pub
 
 ## 검증
 
-`npm test`, `npm run typecheck`, `npm run build`. 실제 영상 9개와 문제 15개는 교사 검수 전 비공개 저장까지 확인했고 [테스트 기록](TEST_RESULTS.md)에 결과와 남은 확인을 적었습니다.
+`npm test`, `npm run typecheck`, `npm run build`. 실제 영상 9개와 문제 28개는 교사 검수 전 비공개 저장까지 확인했고 [테스트 기록](TEST_RESULTS.md)에 결과와 남은 확인을 적었습니다.

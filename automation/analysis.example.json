@@ -8,6 +8,9 @@
   "freshness_type": "evergreen",
   "summary": "자전거를 안전하게 타는 방법을 설명한다.",
   "key_concepts": ["자전거 안전", "안전모"],
+  "coverage_review": [
+    { "learning_point": "자전거를 탈 때 안전모를 착용한다", "question_indices": [0] }
+  ],
   "topics": [{ "slug": "traffic-bicycle", "confidence": 0.95, "reason": "자전거 안전 수칙이 중심 내용이다." }],
   "decision": "needs_review",
   "reason": "초등학생에게 적절한 안전 교육 영상이다.",

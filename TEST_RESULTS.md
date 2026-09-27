@@ -31,6 +31,9 @@
 - 추가 영상 6개의 YouTube 메타데이터와 한국어 자막을 다시 수집했다. 로컬 분석 결과를 `commit.mjs`로 재검증해 영상 6개와 빈칸 문제 10개를 Supabase에 저장했다: `5rvk-_g-AkU` 2개, `DFzHl3hhexs` 1개, `BLxy2jCrd8s` 1개, `0oWKIAxMVqA` 2개, `XruHp6PQZkE` 2개, `rxqOe8g0mec` 2개.
 - DB 재조회 결과 총 영상 9개와 문제 15개다. 추가 영상 6개는 모두 `needs_review`, `published=false`; 추가 문제 10개는 모두 `auto_passed`, `teacher_review_status=needs_review`, `published=false`다. 문제의 필수 문항·정답·자막 근거·시작/종료 시각도 모두 존재하며 시간 구간이 유효하다.
 - `review:report`를 다시 실행해 영상 9개와 문제 15개의 근거 링크를 `automation/out/review-report.md`에 기록했다. 공개 JSON은 교육주제 34개, 영상 0개로 유지됐다. `BLxy2jCrd8s`와 `0oWKIAxMVqA`의 자동 자막에는 오인식이 많아 실제 발화와 문제 근거 구간을 교사가 특히 확인해야 한다.
+- 2026-09-27: 영상 9개의 길이, 자막에서 읽을 수 있는 핵심 내용, 문제의 근거 시간을 대조했다. `geLqFfQUD-0`(9분 13초, 2문제), `rxqOe8g0mec`(7분 22초, 2문제), `5rvk-_g-AkU`(5분 12초, 2문제) 등에서 수칙 누락을 확인했다. 영상 길이만으로 문제 수를 정하지 않고, 읽을 수 있는 서로 다른 핵심 내용의 반영 여부를 기준으로 삼는다.
+- 기존 비공개 영상 6개에 자막 근거가 명확한 문제 13개를 추가했다. `geLqFfQUD-0` 5개, `rxqOe8g0mec` 3개, `5rvk-_g-AkU` 2개, `6caiRNIFWE8` 1개, `DFzHl3hhexs` 1개, `XruHp6PQZkE` 1개다. 저장 전에 자막을 다시 수집해 각 문제의 정답·근거 문장·시간 구간을 검증했다. 오인식이 심한 `BLxy2jCrd8s`와 `0oWKIAxMVqA`는 문항 수를 억지로 늘리지 않았다.
+- DB 재조회 결과 영상 9개와 문제 28개가 모두 검수 대기·비공개이며, 문제의 자동 근거 검증은 모두 통과했다. 검수 보고서를 다시 만들어 9개 영상과 28개 문제를 표시했다.
 
 ## 남은 확인
 
@@ -38,7 +41,7 @@
 
 ## 교사 검수 후 확인 절차
 
-1. 교사가 `needs_review` 영상 9개와 문제 15개의 화면 내용, 자막 오류, 출처, 학년 적합성을 확인한다.
+1. 교사가 `needs_review` 영상 9개와 문제 28개의 화면 내용, 자막 오류, 출처, 학년 적합성을 확인한다.
 2. 교사가 공개할 영상만 `review_status='approved'`, `reviewed_at` 현재 시각, `published=true`로 설정한다.
 3. `npm run export:public`, `npm run build`를 실행하고 승인된 영상·문제만 JSON에 포함되는지 확인한다.
 4. Pages에 배포하여 주제/세부주제/학년 필터, YouTube 재생, 학생용/교사용 A4 인쇄를 확인한다. 공개를 취소한 뒤 다시 내보내고 배포하여 해당 파일이 사라지는지도 확인한다.
