@@ -34,4 +34,4 @@ Cloudflare Pages에는 Supabase URL이나 키를 설정하지 않습니다. `pub
 
 ## 검증
 
-`npm test`, `npm run typecheck`, `npm run build`. 실제 영상 9개와 문제 37개를 저장했고, 이 중 제외 처리한 1개를 뺀 36개가 교사 검수 보고서에 표시됩니다. 모두 비공개이며 [테스트 기록](TEST_RESULTS.md)에 결과와 남은 확인을 적었습니다.
+`npm test`, `npm run typecheck`, `npm run build`. 현재 Supabase에는 영상 9개와 문제 37개가 있으며, 사용자 요청에 따라 영상 9개와 문제 36개를 승인·공개 처리했습니다. 제외한 문제 1개는 비공개입니다. `public/data`와 `dist`에도 공개 영상 9개와 문제 36개가 반영됐으며, Cloudflare Pages에는 별도 Direct Upload가 필요합니다. [테스트 기록](TEST_RESULTS.md)에 확인 결과를 적었습니다.
